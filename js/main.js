@@ -5,6 +5,9 @@ function makeRandomMove() {
   // chess.js gives us all the possible moves in an array
   // [ move1, move2, move3 ... ]
   var possibleMoves = game.moves();
+  // filterForCaptures();
+  console.log(possibleMoves);
+  possibleMoves = filterForCaptures();
 
   // exit if the game is over
   if (game.game_over()) return;
@@ -20,6 +23,16 @@ function makeRandomMove() {
 
   // call this function again in 5 secs
   window.setTimeout(makeRandomMove, 500);
+}
+
+function filterForCaptures() {
+  var potentialMoves = game.moves().filter(move => move.includes("x") || move.includes("+"));
+
+  if (potentialMoves.length == 0) {
+    return game.moves();
+  } else {
+    return potentialMoves;
+  }
 }
 
 board = Chessboard("myBoard", "start");
